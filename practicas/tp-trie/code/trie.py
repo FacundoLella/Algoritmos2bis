@@ -97,6 +97,60 @@ def Delete(T,element):
       else:
         i = i + 1
 
+def Prefix(T,prefijo,n):
+  ListaPalabras = []
+  Children = T.root
+  t = len(prefijo)
+  i = 0
+  k = 0
+  while True:
+    if i==len(Children.children):
+      return None
+    else:
+      if Children.children[i].key==prefijo[k]:
+        Children = Children.children[i]
+        i = 0
+        k = k + 1
+        if k==t:
+          break
+      else:
+        i = i + 1
+  palabra = prefijo
+  contador = t
+  if Children.children ==None:
+    return None
+  else:
+
+    PrefixR(ListaPalabras,Children,contador,n,palabra)
+    return ListaPalabras
+
+
+
+
+
+
+
+def PrefixR(ListaPalabras,Children,contador,n,palabra):
+  if Children.isEndOfWord==True and contador==n:
+    ListaPalabras.append(palabra)
+  if Children.children!=None:
+    q = len(Children.children)
+    i = 0
+    vieja = palabra
+    contadorviejo = contador
+    while q!=i:
+      if Children.children!=None and contador!=n:
+        palabra = palabra + Children.children[i].key
+        contador = contador + 1
+        PrefixR(ListaPalabras,Children.children[i],contador,n,palabra)
+      if Children.isEndOfWord==True and contador==n:
+        palabra = palabra + Children.children[i].key
+        ListaPalabras.append(palabra)
+      i = i + 1
+      palabra = vieja
+      contador = contadorviejo
+
+
 
 
 
